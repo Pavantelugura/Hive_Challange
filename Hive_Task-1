@@ -1,0 +1,118 @@
+1)
+Ans.-->Hive is an open-source data warehouse system for querying and analysing large datasets stored in Hadoop files.
+       The present version of Hive- 3.1.3
+2)
+Ans.-->No, it does not provide insert and update at row level and it is mainly for write once read many times. So it is not used for OLTP system.
+
+3)
+Ans.-->Hive is data warehouse system and RDBMS is used to maintain databases.
+       Hive supports ACID. But in older versions of Hive it does not support ACID transactions on tables, in new versions it supports by default but we have enable it.
+
+4)
+Ans.-->Hive Client supports writing applications in various languages and it supports different types of clients such as hive thrift client, hive JDBC driver, hive ODBC driver.
+       Hive Web User Interface- The user interface providing by hive are Hive web ui or hive HD insight. We can submit hive queries directly to hive server with help of these web ui.
+       Command Line Interface - This is the default shell provided by hive to execute the hive queries or commands directly.
+       Hive Server - This server is based on the thrift language, therefore all the application which support thrift can interact with hive server with different drivers. It allows different clients to submit requests to Hive and retrieve the final result.
+       Hive Driver - The driver is used to receive the quires from UI. It provides execute and fetch APIs modeled on JDBC/ODBC interfaces.
+       Compiler - This receives query from the driver and perform the parsing, type checking, and semantic analysis with the help of schema present in the metastore.
+       Executor - The component which executes the execution plan created by the compiler. The plan is a DAG there is either map or reduce task. The execution engine manages the dependencies between these different stages of the plan and executes these stages on the appropriate system components.
+       Metastore - This contains metadata for hive tables like schema and location, and partitions in a relational database. Client can access this information by metastore service API.
+       Storage Layer - This contains HDFS or HBASE for the storage of data in the tables.
+      
+5)
+Ans.-->Hive Query Processor is used to convert SQL to MapReduce jobs, based on order of dependencies, the jobs are executed.
+       The components are: * Semantic Analyser
+                           * UDF's and UDAF's
+                           * Optimizer
+                           * Operator
+                           * Parser
+                           * Execution Engine
+                           * Type Checking
+                           * Logical Plan Generation
+                           * Physical Plan Generation
+                           
+6) What are the three different modes in which we can operate Hive?
+Ans.--> Local mode: In Hive local mode, Map Reduce jobs related to Hive run locally on a user machine. This is the default mode in which Hadoop uses local file system.
+        Distributed mode: In this mode, Hive as well as Hadoop is running in a fully distributed mode. NameNode, DataNode, JobTracker, TaskTracker etc run on different machines in this mode.
+        Pseudo-distributed mode: This is the mode used by developers to test the code before deploying to protection. In this mode, all daemons run on same virtual machine. With this mode, we can quickly write scripts and test on limited data sets.
+        
+7) Features and Limitations of Hive.
+Ans.--> Features.
+          * Hive supports MapReduce, Spark computing Engine
+          * It is a stable batch-processing framework built on top of the HDFS and can work as a data warehoues.
+          * Hive Query Language uses to query structure data which is easy to code.
+          * It is like SQL means it is non-procdural.
+          * The structure is similar to RDBMS.
+          * It also supports partitioning and bucketing.
+          * It supports users to access files from HDFS
+          * Capable to process very large datasets of Petabytes in size
+          * It can use MapReduce code with Hive to process unstructured data.
+          * JDBC/ODBC drivers are also available
+          * We store Hive data on HDFS so fault tolerance is provided by Hadoop
+       
+       Limitations:
+          * Does not support OLAP
+          * It does not support update and deletion of tables
+          * Subqueries are not supported
+          * The latency in the apache hive query is very high
+          * It is not used for real-tine data querying since it takes a while to produce a result
+          * Does not support the transaction processing feature.
+          
+8) How to create a Database in Hive?
+Ans.--> hive> create database name;
+
+9) How to create a table in Hive?
+Ans.--> hive> create table name(______) row format delimited fields terminated by ',';
+
+10) What do you mean by describe and describe extended and describe formatted with respect to database and table.
+Ans.--> Database:
+                * Describe: FAILED: SemanticException [Error 10001]: Table not found hive_class_b1
+                * Describe extended: FAILED: SemanticException [Error 10001]: Table not found hive_class_b1
+                * Describe formatted: FAILED: SemanticException [Error 10001]: Table not found hive_class_b1
+       Tables:
+                * Describe: It will show names of columns and which datatype is stored in that row
+                * Describe extended: It will show more detailed review than describe only, furthermore it also shows about creator of that table and time when it created and field schema of each row created in that it shows about name, type: datatype, comment and total size table type and total rows.
+                * Describe formatted: It will shows detailed table information like database name, owner, createtime, lastaccesstime, protect mode, retention, location, table type, table parameters,
+                  further more storage information SerDe library, Input format, Output format, Compressed, Num buckets, Bucket columns, Storage Desc Params like serialization format.
+                  
+ 11) How to skip header rows from table in Hive?
+ Ans.--> hive> set hive.cli.print.header = true;
+ 
+ 12) What is a hive operator? What are the different types of hive operators?
+ Ans.--> Hive provides various built-in operators for data operations to be implimented on the tables present inside hive warehouse.
+         Types of Hive Operators are:
+                                    *Relational Operators
+                                    *Arithmetic Operators
+                                    *Logical Operators
+                                    *String Operators
+                                    *Operators on Complex Types
+                                    
+ 13) Explain about the Hive Built-in Functions
+ Ans.--> Functions are built to perform different analytical requirements and operations like mathematical, logical, arithmetic and relational on huge datasets and tables. Functions are used when we have to re-use similar operations multiple times.
+ 
+ 14) Write hive DDL and DML commands.
+ Ans.--> DDL - Declarative method: Commands are the statements used for defining and changing the structure of a table or database.
+                                 * CREATE
+                                 * ALTER
+                                 * DROP
+                                 * TRUNCATE
+        DML - Data Manipulation Language: commands are used to insert, update, retrieve, and delete data from the hive table once the table and database schema has been defined using Hive DDL commands
+                                 * DELETE
+                                 * MERGE
+                                 * INSERT
+                                 * UPDATE
+                               
+  15) Explain about SORT BY, ORDER BY, DISTRIBUTE BY and CLUSTER BY in Hive.
+  Ans.--> * SORT BY: To sort the rows based on the given columns per reducer
+          * ORDER BY: Allows sorting of data in either ascending or descending order
+          * DISTRIBUTE BY: Used on tables present in Hive. Hive uses the columns in Distribute by to distribute the rows among reducers.
+          * CLUSTER BY: Cluster by used as an alternative for both Distribute By and Sort By clauses in Hive-QL. Used to Distribute the rows among reducers.
+          
+ 16) Difference between "Internal table" and "External table" and Mention when to choose "Internal table" and "External table" in Hive?
+ Ans.--> 
+             
+
+
+
+ 
+ 

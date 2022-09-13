@@ -265,4 +265,122 @@ Ans.--> hive> insert overwrite table
               covid19_data 
               values (12, 280, 'deaths');
               
-54) 
+54) What is the maximum size of a string data type supported by Hive? Explain how Hive supports binary formats.
+Ans.--> 2 GB is the maximum size of a string data type.
+        When Hive converts queries to MapReduce jobs, it decides on the appropriate key-value pairs to be used for a given record. Sequence files are in the binary format which can be split and the main use of these files is to club two or more smaller files and make them as a sequence file.
+       
+55) What File Formats and Applications Does Hive Support?
+Ans.--> * Text file
+        * Sequence file
+        * ORC file
+        * Row Columnar file
+        * Parquet file.
+        
+56) How do ORC format tables help Hive to enhance its performance?
+Ans.--> Hive can store the data in highly efficient manner in the Optimized RC file format. It can ease many Hive file format limitations. Using ORC files can improves the performance when reading, writing, and processing the data.
+
+57) How can Hive avoid mapreduce while processing the query?
+Ans.--> Yes, by setting command.
+        hive> set hive.exec.mode.local.autoproperty = true;
+        
+58) What is view and indexing in hive?
+Ans.--> We can create a view at the time of executing a select statement.        
+        An Index is nothing but a pointer on a particular column of a table.
+        
+ 59) Can the name of a view be the same as the name of a hive table?
+ Ans.--> No, we cannot use same name for a table and view in Hive. So we have to select a unique name for a view in Hive.
+ 
+ 60) What types of costs are associated in creating indexes on hive tables?
+ Ans.--> 
+ 
+ 61) Give the command to see the indexes on a table.
+ Ans.--> hive> sys.indexes
+ 
+ 62) Explain the process to access subdirectories recursively in Hive queries.
+ Ans.--> hive> set mapred.input.dir.recursive=true;
+               set hvie.mapred.supports.subdirectories=true;
+ 
+ 63) If you run a select * query in Hive, why doesn't it run MapReduce?
+ Ans.--> In Hive if yot do simple query like select * from table there will be no MapReduce job is going to run as we are just dumping the data.
+ 
+ 64) What are the uses of Hive Explode?
+ Ans.--> Explode is a user defined table generating function in Hive. It takes an array as an input and outputs the elements of the array as seperate rows.
+ 
+ 65)  What is the available mechanism for connecting applications when we run Hive as a server?
+ Ans.--> ODBC Driver
+ 
+ 66) Can the default location of a managed table be changed in Hive?
+ Ans.--> Yes, we can change it by using -location'hdfs_path' .
+ 
+ 67) What is the Hive ObjectInspector function?
+ Ans.--> Hive uses ObjectInspector to analyze the internal structure of the row object and also the structure of the individual columns.
+         It provides a uniform way to access complex objects that can be stored in multiple formats in the memory, including:
+         . Instance of a Java Class
+         . A standard Java Object
+         . A lazily-initialized object.
+       
+ 68) What is UDF in Hive?
+ Ans.--> UDF(User Defined Functions) allows the user to extend Hive Query Language. Once the UDF added in the Hive script, it works like a normal built-in function. To check which all UDFs are loaded in current hive session, we use show command.
+ 
+ 69) Write a query to extract data from hdfs to hive.
+ Ans.--> hive> load data inpath '/tmp/hive_class/' into table depart_data;
+ 
+ 70) What is TextInputFormat and SequenceFileInputFormat in hive.
+ Ans.--> 
+ 
+ 71) How can you prevent a large job from running for a long time in a hive?
+ Ans.--> 
+ 
+ 72) When do we use explode in Hive?
+ Ans.--> It is mostly used for Analysing text data using Hive. 
+ 
+ 73) Can Hive process any type of data formats? Why? Explain in very detail.
+ Ans.--> Yes, Hive uses the SerDe interface for IO operations. Different SerDe interfaces can read and write any type of data. If normal directly process the data where as different type of data is in the Hadoop, Hive use different SerDe interface to process such data.
+ 
+ 74) Whenever we run a Hive query, a new metastore_db is created. Why?
+ Ans.--> A local metastore is created when we run Hive in an embedded mode. Before creating, it checks whether the metastore exists or not, and this metastore property is defined inthe configuration file, hive-site.xml. The property is: javax:jdo.option.ConnectionURL wiith the default value: jdbc:derby:;databaseName=metastore_db;create=true. Therefore, we have to change the behavior of the location to an absolute path so that from that location the metastore can be used.
+ 
+ 75) Can we change the data type of a column in a hive table? Write a complete query.\
+ Ans.--> Yes, hive> alter table table_name replace columns;
+ 
+ 76) While loading data into a hive table using the LOAD DATA clause, how do you specify it is a hdfs file and not a local file ?
+ Ans.--> By eliminating Local keyword from load data statement.
+ 
+ 77) What is the precedence order in Hive configuration?
+ Ans.--> * Hive SET
+         * -hiveconf
+         * hive-site.xml file
+         * hive-default.xml file
+         * hadoop-site.xml file
+         * hadoop-default.xml file
+         
+  78) Which interface is used for accessing the Hive metastore?
+  Ans.--> Thrift server is used.
+  
+  79) Is it possible to compress json in the Hive external table ?
+  Ans.--> 
+  
+  80) What is the difference between local and remote metastores?
+  Ans.--> *Local Mode: Basically, as the main HiveServer process, the Hive metastore service runs in the same process, but make sure Hive metastore database runs in a separate process, as well as it can be on a separate host, in Local mode.
+          * Remote Mode: Whereas, the Hive metastore service runs in its own JVM process. Some processes(HiveServer2, HCatalog, Cloudera Impala™,) communicate with it with the help of the Thrift network API, in Remote mode.
+                         In comparison with the Local mode, there is one benefit of using the Remote mode, that is Remote mode does not need the administrator to share JDBC login information for the metastore database along with each Hive user, but local mode does.
+                         
+  81) What is the purpose of archiving tables in Hive?
+  Ans.--> 
+  
+  82) What is DBPROPERTY in Hive?
+  Ans.--> DBPROPERTIES are like mentioning the details about the database created by the user.
+  
+  83) Differentiate between local mode and MapReduce mode in Hive.
+  Ans.--> Local mode: It is used for only loading data into tables and to see tables.
+          MapReduce: It is used to write queries to see data regarding to some immportant queries from the table and we can make customize the MapReduce queries where we want only one Map or Reducer we can handle that and it is time consuming.
+          
+    
+
+
+
+
+
+
+
+ 
